@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<url>http://maven.apache.org</url>
+	<groupId>server</groupId>
+	<artifactId>wssrv</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>server</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../parent</relativePath>
+	</parent>
+
+	<properties>
+		<!--<docker.image.prefix>appdock</docker.image.prefix>-->
+		<start-class>com.kariqu.wssrv.app.Application</start-class>
+
+		<commons.beanutils.version>1.8.3</commons.beanutils.version>
+		<javax.inject.version>1</javax.inject.version>
+
+		<commons-io.version>2.4</commons-io.version>
+		<commons-lang.version>2.6</commons-lang.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.24.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>server</groupId>
+			<artifactId>thelib</artifactId>
+            <version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.59</version>
+		</dependency>
+
+		<!--&lt;!&ndash;友盟推送&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.json</groupId>-->
+			<!--<artifactId>json</artifactId>-->
+			<!--<version>20090211</version>-->
+		<!--</dependency>-->
+
+
+		<!--&lt;!&ndash;支付宝接口依赖此包&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>commons-httpclient</groupId>-->
+			<!--<artifactId>commons-httpclient</artifactId>-->
+			<!--<version>3.0.1</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.httpcomponents</groupId>-->
+			<!--<artifactId>httpclient</artifactId>-->
+			<!--<version>4.4</version>-->
+		<!--</dependency>-->
+
+		<!--JODA-TIME-->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>xmlpull</groupId>
+			<artifactId>xmlpull</artifactId>
+			<version>1.1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zuul</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-netflix-sidecar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+
+		<!--common-->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>${javax.inject.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons.beanutils.version}</version>
+		</dependency>
+
+		<!--security-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+
+		<!--mysql-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!--redis-->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.8.0.M1</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.kstyrc</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<version>0.6</version>
+		</dependency>
+
+		<!--ehcache-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+
+
+		<!--&lt;!&ndash;个推&ndash;&gt;-->
+		<dependency>
+			<groupId>com.gexin.platform</groupId>
+			<artifactId>gexin-rp-sdk-http</artifactId>
+			<version>4.0.1.9</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-cdn</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+
+        <!--&lt;!&ndash;支付宝接口依赖此包&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>commons-httpclient</groupId>-->
+			<!--<artifactId>commons-httpclient</artifactId>-->
+			<!--<version>3.0.1</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.httpcomponents</groupId>-->
+			<!--<artifactId>httpclient</artifactId>-->
+			<!--<version>4.3.1</version>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;JODA-TIME&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>joda-time</groupId>-->
+			<!--<artifactId>joda-time</artifactId>-->
+			<!--<version>2.8.2</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>xmlpull</groupId>-->
+			<!--<artifactId>xmlpull</artifactId>-->
+			<!--<version>1.1.3.1</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>com.thoughtworks.xstream</groupId>-->
+			<!--<artifactId>xstream</artifactId>-->
+			<!--<version>1.4.7</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-starter-zuul</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-netflix-sidecar</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-starter</artifactId>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+			<!--&lt;!&ndash;<groupId>org.springframework.cloud</groupId>&ndash;&gt;-->
+			<!--&lt;!&ndash;<artifactId>spring-cloud-config-client</artifactId>&ndash;&gt;-->
+		<!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.solr</groupId>-->
+			<!--<artifactId>solr-solrj</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.json</groupId>-->
+			<!--<artifactId>json</artifactId>-->
+			<!--<version>20160810</version>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;security&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-security</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>io.jsonwebtoken</groupId>-->
+			<!--<artifactId>jjwt</artifactId>-->
+			<!--<version>0.6.0</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-web</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-redis</artifactId>-->
+		<!--</dependency>-->
+		<!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+			<!--&lt;!&ndash;<groupId>org.springframework.session</groupId>&ndash;&gt;-->
+			<!--&lt;!&ndash;<artifactId>spring-session</artifactId>&ndash;&gt;-->
+		<!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-test</artifactId>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.httpcomponents</groupId>-->
+			<!--<artifactId>httpclient</artifactId>-->
+			<!--<scope>runtime</scope>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;common&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>javax.inject</groupId>-->
+			<!--<artifactId>javax.inject</artifactId>-->
+			<!--<version>${javax.inject.version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.projectlombok</groupId>-->
+			<!--<artifactId>lombok</artifactId>-->
+			<!--<version>1.16.4</version>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>commons-beanutils</groupId>-->
+			<!--<artifactId>commons-beanutils</artifactId>-->
+			<!--<version>${commons.beanutils.version}</version>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;mysql&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>mysql</groupId>-->
+			<!--<artifactId>mysql-connector-java</artifactId>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;redis&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.data</groupId>-->
+			<!--<artifactId>spring-data-redis</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.github.kstyrc</groupId>-->
+			<!--<artifactId>embedded-redis</artifactId>-->
+			<!--<version>0.6</version>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash;ehcache&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework</groupId>-->
+			<!--<artifactId>spring-context-support</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>net.sf.ehcache</groupId>-->
+			<!--<artifactId>ehcache</artifactId>-->
+			<!--<version>2.8.3</version>-->
+		<!--</dependency>-->
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>getui-nexus</id>
+			<url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--<plugin>-->
+				<!--<groupId>com.spotify</groupId>-->
+				<!--<artifactId>docker-maven-plugin</artifactId>-->
+				<!--<version>${docker.plugin.version}</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<phase>package</phase>-->
+						<!--<goals>-->
+							<!--<goal>build</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+				<!--<configuration>-->
+					<!--<imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
+					<!--<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>-->
+					<!--<resources>-->
+						<!--<resource>-->
+							<!--<targetPath>/</targetPath>-->
+							<!--<directory>${project.build.directory}</directory>-->
+							<!--<include>${project.build.finalName}.jar</include>-->
+						<!--</resource>-->
+					<!--</resources>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+		</plugins>
+	</build>
+</project>
