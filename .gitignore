@@ -1,0 +1,9 @@
+datasource/target/
+!datasource/.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+datasource/.idea
+datasource/*.iws
+datasource/*.iml
+datasource/*.ipr
+datasource/target/
