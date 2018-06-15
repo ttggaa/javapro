@@ -13,3 +13,11 @@ zwsrv/*.iws
 zwsrv/*.iml
 zwsrv/*.ipr
 zwsrv/target/
+
+
+myweb/target/
+myweb/.idea
+myweb/*.iws
+myweb/*.iml
+myweb/*.ipr
+myweb/target/

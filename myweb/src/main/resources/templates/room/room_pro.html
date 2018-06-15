@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="images/favicon.ico" type="image/ico"/>
+
+    <title>娃娃机管理系统</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/vendors/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- Font Awesome -->
+    <link href="../../static/vendors/font-awesome/css/font-awesome.min.css"
+          th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+
+    <!-- NProgress -->
+    <link href="../../static/vendors/nprogress/nprogress.css"
+          th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet"/>
+
+    <!-- iCheck -->
+    <link href="../../static/vendors/iCheck/skins/flat/green.css"
+          th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet"/>
+
+    <!-- bootstrap-progressbar -->
+    <link href="../../static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
+          th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet"/>
+
+    <link href="../../static/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+          th:href="@{/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
+
+    <!-- JQVMap -->
+    <link href="../../static/vendors/jqvmap/dist/jqvmap.min.css"
+          th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+
+    <!-- bootstrap-daterangepicker -->
+    <link href="../../static/vendors/bootstrap-daterangepicker/daterangepicker.css"
+          th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="../../static/build/css/custom.min.css"
+          th:href="@{/build/css/custom.min.css}" rel="stylesheet"/>
+
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col" th:replace="left_col :: left_col">
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav" th:replace="top_nav :: top_nav">
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>
+                                    抓娃娃配置页
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <div class="x_content">
+                                <div>
+                                    <input id="input_roomid" type="text" value="请输入数字房间号..."
+                                           onclick="if(value==defaultValue){value='';this.style.color='#000'}"
+                                           onBlur="if(!value){document.getElementById('msgloginid').innerHTML = '';value=defaultValue;}"></input>
+                                    <input id="confirm" type="checkbox" name="confirm" required="required" onclick="onChecked();"/>正式
+                                    <button onclick="ZCLogin()">登录</button>
+                                    <label id="msgloginid" style="color:red;font-size:12pt;"></label>
+                                </div>
+                                <div>
+                                    <input id="input_roomidview" type="text" value = "请先登录房间" disabled = "disabled"></input>
+                                    <button onclick="ZCLogout()">注销当前房间</button>
+                                </div>
+
+
+                                <div>
+                                    <button disabled="disabled" onclick="getGameInfo()">游戏信息</button>
+                                </div>
+                                <br/>
+                                <div>
+                                    <button onclick="ZCGetBaseInfo()">刷新房间数据</button>
+                                </div>
+                                <form >
+                                    <!-- <div id="dv_datainfo"><label></label></div> -->
+                                    <!-- <input id="input_datainfo" type="text" ></input> -->
+                                    <div>
+                                        <label style="display:inline-block;width:180px;">游戏模式(1-6)</label>
+                                        <input id="input_gamemode" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_gamemode').innerHTML = '取值范围(1-6)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_gamemode').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                        <label id="msg_gamemode" style="color:red;font-size:12pt;"></label>
+                                    </div>
+                                    <div>
+                                        <label style="display:inline-block;width:180px;">出奖概率(1-250)</label>
+                                        <input id="input_gailv" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_gailv').innerHTML = '取值范围(1-250)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_gailv').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                        <label id="msg_gailv" style="color:red;font-size:12pt;"></label>
+                                    </div>
+                                    <div>
+                                        <label style="display:inline-block;width:280px;">礼品出口位置(0-1) 0左后角,1左前角</label>
+                                        <input id="input_kou" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_kou').innerHTML = '取值范围(0-1)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_kou').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                        <label id="msg_kou" style="color:red;font-size:12pt;"></label>
+                                    </div>
+                                    <div>
+                                        <label style="display:inline-block;width:80px;"></label>
+                                        <button type="button" class="btn btn-success" onclick="ZCUpdateBaseInfo()">提交修改</button>
+                                    </div>
+                                </form>
+                                <br/>
+                                <div>
+                                    <button onclick="ZCGetZhuali()">刷新爪力电压数据</button>
+                                </div>
+                                <form >
+                                    <!-- <div id="dv_zhualiinfo"><label></label></div> -->
+                                    <!-- <input id="input_zhualiinfo" type="text" ></input> -->
+                                    <div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">强爪电压(130-475)</label>
+                                            <input id="input_high" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_high').innerHTML = '取值范围(130-475)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_high').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                            <label id="msg_high" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">弱爪电压(20-200)</label>
+                                            <input id="input_low" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_low').innerHTML = '取值范围(20-200)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_low').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                            <label id="msg_low" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">弱抓后电压(20-400)</label>
+                                            <input id="input_low_ex" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_low_ex').innerHTML = '取值范围(20-400)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_low_ex').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999" ></input>
+                                            <label id="msg_low_ex" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">中奖电压(45-480)</label>
+                                            <input id="input_award" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_award').innerHTML = '取值范围(45-480)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_award').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999" ></input>
+                                            <label id="msg_award" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">强力维持时间(1-30)</label>
+                                            <input id="input_highhold" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_highhold').innerHTML = '取值范围(1-30)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_highhold').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                            <label id="msg_highhold" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">弱力维持时间(1-30)</label>
+                                            <input id="input_lowhold" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_lowhold').innerHTML = '取值范围(1-30)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_lowhold').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                            <label id="msg_lowhold" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                        <div>
+                                            <label style="display:inline-block;width:180px;">强变弱方式(0-1)</label>
+                                            <input id="input_change" type="text" value="请输入数字..." onclick="if(value==defaultValue){document.getElementById('msg_change').innerHTML = '取值范围(0-1)';value='';this.style.color='#000'}" onBlur="if(!value){document.getElementById('msg_change').innerHTML = '';value=defaultValue;this.style.color='#999'}" style="color:#999"></input>
+                                            <label id="msg_change" style="color:red;font-size:12pt;"></label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label style="display:inline-block;width:80px;"></label>
+                                        <button type="button" class="btn btn-success" onclick="ZCUpdateZhuali()">提交修改</button>
+                                    </div>
+                                </form>
+                                <br/>
+                                <div>
+                                    <button onclick="ZCGetMada()">刷新马达速度数据</button>
+                                </div>
+                                <form >
+                                    <div id="dv_madainfo"><label></label></div>
+                                    <input id="input_madainfo" type="text" disabled="disabled" ></input>
+                                    <button type="button" class="btn btn-success" disabled="disabled" onclick="ZCUpdateMada()">确认</button>
+                                </form>
+                                <br/>
+                                <div>
+                                    <button onclick="ZCClear()">资料清除</button>
+                                </div>
+                                <br/>
+                                <div>
+                                    <button onclick="ZCReset()">恢复工厂设置</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:replace="footer :: footer">
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="../../static/vendors/jquery/dist/jquery.min.js" th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script src="../../static/vendors/bootstrap/dist/js/bootstrap.min.js"
+        th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script src="../../static/vendors/fastclick/lib/fastclick.js" th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NProgress -->
+<script src="../../static/vendors/nprogress/nprogress.js" th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<!-- iCheck -->
+<script src="../../static/vendors/iCheck/icheck.min.js" th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+<!-- Datatables -->
+<script src="../../static/vendors/datatables.net/js/jquery.dataTables.min.js"
+        th:src="@{/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script src="../../static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"
+        th:src="@{/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"
+        th:src="@{/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/buttons.flash.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/buttons.html5.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/buttons.print.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+<script src="../../static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"
+        th:src="@{/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+<script src="../../static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"
+        th:src="@{/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+<script src="../../static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"
+        th:src="@{/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+<script src="../../static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"
+        th:src="@{/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+<script src="../../static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"
+        th:src="@{/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+<script src="../../static/vendors/jszip/dist/jszip.min.js" th:src="@{/vendors/jszip/dist/jszip.min.js}"></script>
+<script src="../../static/vendors/pdfmake/build/pdfmake.min.js"
+        th:src="@{/vendors/pdfmake/build/pdfmake.min.js}"></script>
+<script src="../../static/vendors/pdfmake/build/vfs_fonts.js" th:src="@{/vendors/pdfmake/build/vfs_fonts.js}"></script>
+
+<script src="../../static/vendors/moment/min/moment.min.js"
+        th:src="@{/vendors/moment/min/moment.min.js}"></script>
+<script src="../../static/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"
+        th:src="@{/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+
+<!-- Custom Theme Scripts-->
+<script src="../../static/build/js/custom.min.js" th:src="@{/build/js/custom.min.js}"></script>
+
+<!-- zg -->
+<script src="../../static/custom/zg/aes.js" th:src="@{/custom/zg/aes.js}"></script>
+<script src="../../static/custom/zg/jquery.base64.js" th:src="@{/custom/zg/jquery.base64.js}"></script>
+<script src="../../static/custom/zg/jquery.md5.js" th:src="@{/custom/zg/jquery.md5.js}"></script>
+<script src="../../static/custom/zg/jZego-1.0.9.min.js" th:src="@{/custom/zg/jZego-1.0.9.min.js}"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+<!--<script src="../../static/vendors/zg/jquery-3.3.1.min.js" th:src="@{/vendors/zg/jquery-3.3.1.min.js}"></script>-->
+
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+    var appid;
+    var loginTokenAppKey;
+
+    var isonline = 0;
+
+    var AESkey;  //aeskey约定加密
+
+    var server; //wawaji接入服务器地址    --- 即构下发的server地址
+    var idName = "idname";
+    var nickName = "uidname";
+    var logLevel = "";
+    var logUrl = "";
+
+    var zg; //zegoClient对象
+    zg = new ZegoClient();
+    var roomID = "krq_room_";  // 房间号
+    var useLocalStreamList = []; // 本地流列表
+    var anchor_id; //主播
+
+    var customSeq;
+    function getCustomSeq() {
+        customSeq = localStorage.getItem('customSeq');
+        ++customSeq;
+        localStorage.setItem("customSeq", customSeq);
+        return customSeq;
+    }
+
+    function getNumber(number1, number2){
+        var num = number1 << 8;
+        num = num + number2;
+        return num;
+    }
+
+    function getNumber16str(number){
+        var str = "";
+        if( number < 16 )
+            str += "000";
+        else if( number < 256 )
+            str += "00";
+        else if( number < 4096 )
+            str += "0";
+        str += number.toString(16);
+        //console.log("str :" + str);
+        return str;
+    }
+
+    function getToken() {
+        var tnow = new Date().getTime();
+        var nonce = tnow + '';
+        var time = Math.round(tnow/1000 + 3600);
+        var str = appid + '' + loginTokenAppKey + idName + nonce + time;
+        var hash = $.md5(str);
+        var obj_str = JSON.stringify(
+            {
+                'ver':1,
+                'hash':hash,
+                'nonce':nonce,
+                'expired':time
+            }
+        ).toLowerCase();
+        return $.base64.btoa(obj_str);
+    }
+
+    function ZCLogout() {
+        if (zg == null) {
+
+        } else {
+            zg.logout();
+            localStorage.removeItem('customSeq');
+            console.log("logout success");
+            // document.getElementById("input_roomid").value = "请输入数字房间号...";
+            document.getElementById("input_roomid").disabled = false;
+            document.getElementById("input_roomidview").value = "请先登录房间";
+        }
+    }
+
+    function ZCLogin() {
+
+        if( !checkScriptData() )
+        {
+            alert("loading error!");
+            return;
+        }
+        var inputroomid = document.getElementById("input_roomid").value
+        if(reg.test(inputroomid)==false){
+            document.getElementById("msgloginid").innerHTML = "需填数字";
+            return;
+        }
+        document.getElementById("msgloginid").innerHTML = "";
+
+        roomID = "krq_room_";  // 房间号
+        roomID += inputroomid;
+
+        //zg = new ZegoClient();
+        zg.config({
+            appid:  appid,
+            idName: idName,
+            nickName: nickName,
+            server: server,
+            logLevel: logLevel,
+            logUrl: logUrl
+        });
+        console.log("zg config finish!");
+        doLogin();
+    }
+
+    function doLogin() {
+        console.log("start doLogin");
+        // 2.  登陆
+        var token = getToken();
+        zg.login(roomID, 2, token, function (streamList) {
+            //console.log('login sucess - data = ', streamList);
+            console.log('login sucess - data');
+            // 缓存新的流
+
+            //useLocalStreamList = updateStreamInfo(streamList) || [];
+            console.log('-----> stream count:',streamList[0].anchor_id_name);
+            anchor_id = streamList[0].anchor_id_name;
+            document.getElementById("input_roomidview").value = roomID;
+            // 登录成功后，马上主动发送获取游戏信息的命令
+            //getGameInfo();
+        }, function (err) {
+            console.log('login error - data = ', err);
+        });
+    }
+    // （4）登录成功后，马上主动发送获取游戏信息的命令
+    function getGameInfo() {
+        console.log('获取游戏信息!');
+        var tnow = new Date().getTime();
+        var time = Math.round(tnow/1000 + 3600);
+        var data = {"time_stamp":time}
+        sendCustomCMD(getCustomSeq(), 518, data);
+        //sendCustomCMD(sendClientSeq(), 518, operateData);
+    }
+
+    var localBaseInfo;//基础设置
+    var localZhualiInfo;//爪力电压
+    var reg=/^[1-9]\d*$|^0$/; //注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;
+
+    function ZCGetBaseInfo(){
+        console.log('查询当前基础数据!');
+        var data = [0x8A, 0x03 , 0x16 , 0x01 , 0x1A , 0x55]; //查询基础设置
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    function ZCUpdateBaseInfo(){
+        console.log('修改基础设置!');
+        //var data = [0x8A, 0x13, 0x10, 0x01, 0x01, 0x01, 0x00, 0x01, 0x01, 0x01, 0x14, 0x02, 0xf5, 0x01, 0x00, 0x09, 0x0A, 0x01, 0x01, 0x00, 0x00, 0x55]; //查询基础设置
+        //var data = [0x8a,0x13,0x10,0x01,0x01,0x01,0x00,0x01,0x01,0x01,0x3c,0x02,0x15,0x01,0x00,0x09,0x0a,0x01,0x01,0x00,0x79,0x55];
+        var data = localBaseInfo;
+        var gamemode = document.getElementById("input_gamemode").value;
+        var gailv = document.getElementById("input_gailv").value;
+        var kou = document.getElementById("input_kou").value;
+        if(reg.test(gamemode)==false){
+            document.getElementById("msg_gamemode").innerHTML = "需填数字";
+            return;
+        }
+        else if( Number(gamemode) < 1 || Number(gamemode)> 6){
+            document.getElementById("msg_gamemode").innerHTML = "超出取值范围（1-6）";
+            return;
+        }
+        if(reg.test(gailv)==false){
+            document.getElementById("msg_gailv").innerHTML = "需填数字";
+            return;
+        }
+        else if( Number(gailv) < 1 || Number(gailv)> 250){
+            document.getElementById("msg_gailv").innerHTML = "超出取值范围（1-250）";
+            return;
+        }
+        if(reg.test(kou)==false){
+            document.getElementById("msg_kou").innerHTML = "需填数字";
+            return;
+        }
+        else if( Number(kou) < 0 || Number(kou)> 1){
+            document.getElementById("msg_kou").innerHTML = "超出取值范围（0-1）";
+            return;
+        }
+        data[2] = 0x10;
+        data[3] = 0x01;
+        data[11] = Number(gamemode);    //游戏模式
+        data[12] = Number(gailv);       //出奖概率
+        data[13] = Number(kou);         //礼品出口位置
+        data.push(85);
+        var sum=0;
+        for(var i = 1; i < data.length-2; i++){
+            sum += data[i];
+        }
+        data[data.length - 2] = sum;
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    function ZCGetZhuali(){
+        console.log('查询爪力电压数据!');
+        var data = [0x8A, 0x03 , 0x17 , 0x01 , 0x1B , 0x55]; //查询爪力电压
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    function ZCUpdateZhuali(){
+        console.log('修改爪力电压!');
+        <!-- var data = [0x8a,0x13,0x11,0x01,0x01,0x18,0x00,0x64,0x00,0x80,0x01,0x68,0x08,0x02,0x00,0x16,0x02,0x00,0x00,0x01,0xb5,0x55]; -->
+        var data = localZhualiInfo;
+
+        var highstr = document.getElementById("input_high").value;			//强爪电压
+        var lowstr = document.getElementById("input_low").value;			//弱爪电压
+        var low_exstr = document.getElementById("input_low_ex").value;		//弱抓后电压
+        var awardstr = document.getElementById("input_award").value;		//中奖电压
+        var highholdstr = document.getElementById("input_highhold").value;	//强力维持时间
+        var lowholdstr = document.getElementById("input_lowhold").value;	//弱力维持时间
+        var changestr = document.getElementById("input_change").value;		//强变弱方式
+        //格式判断
+        {
+            if(reg.test(highstr)==false){
+                document.getElementById("msg_high").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(highstr) < 130 || Number(highstr)> 475){
+                document.getElementById("msg_high").innerHTML = "超出取值范围（130-475）";
+                return;
+            }
+            if(reg.test(lowstr)==false){
+                document.getElementById("msg_low").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(lowstr) < 20 || Number(lowstr)> 200){
+                document.getElementById("msg_low").innerHTML = "超出取值范围（20-200）";
+                return;
+            }
+            if(reg.test(low_exstr)==false){
+                document.getElementById("msg_low_ex").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(low_exstr) < 20 || Number(low_exstr)> 400){
+                document.getElementById("msg_low_ex").innerHTML = "超出取值范围（20-400）";
+                return;
+            }
+            if(reg.test(awardstr)==false){
+                document.getElementById("msg_award").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(awardstr) < 45 || Number(awardstr)> 480){
+                document.getElementById("msg_award").innerHTML = "超出取值范围（45-480）";
+                return;
+            }
+            if(reg.test(highholdstr)==false){
+                document.getElementById("msg_highhold").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(highholdstr) < 1 || Number(highholdstr)> 30){
+                document.getElementById("msg_highhold").innerHTML = "超出取值范围（1-30）";
+                return;
+            }
+            if(reg.test(lowholdstr)==false){
+                document.getElementById("msg_lowhold").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(lowholdstr) < 1 || Number(lowholdstr)> 30){
+                document.getElementById("msg_lowhold").innerHTML = "超出取值范围（1-30）";
+                return;
+            }
+            if(reg.test(changestr)==false){
+                document.getElementById("msg_change").innerHTML = "需填数字";
+                return;
+            }
+            else if( Number(changestr) < 0 || Number(changestr)> 1){
+                document.getElementById("msg_change").innerHTML = "超出取值范围（0-1）";
+                return;
+            }
+        }
+
+        var temp = getNumber16str(Number(highstr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var high1 = Number('0x' + temp.substr(0,2));
+        var high2 = Number('0x' + temp.substr(2,2));
+        temp = getNumber16str(Number(lowstr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var low1 = Number('0x' + temp.substr(0,2));
+        var low2 = Number('0x' + temp.substr(2,2));
+        temp = getNumber16str(Number(low_exstr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var low_ex1 = Number('0x' + temp.substr(0,2));
+        var low_ex2 = Number('0x' + temp.substr(2,2));
+        temp = getNumber16str(Number(awardstr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var award1 = Number('0x' + temp.substr(0,2));
+        var award2 = Number('0x' + temp.substr(2,2));
+        temp = getNumber16str(Number(highholdstr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var highhold = Number('0x' + temp);
+        temp = getNumber16str(Number(lowholdstr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var lowhold = Number('0x' + temp);
+        temp = getNumber16str(Number(changestr));
+        if(temp.length != 4){console.log("temp.length != 4 :" + temp);return;}
+        var change = Number('0x' + temp);
+
+        data[2] = 0x11;
+        data[3] = 0x01;
+        data[4] = high1;
+        data[5] = high2;
+        data[6] = low1;
+        data[7] = low2;
+        data[8] = low_ex1;
+        data[9] = low_ex2;
+        data[10] = award1;
+        data[11] = award2;
+        data[12] = highhold;
+        data[13] = lowhold;
+        data[14] = change;
+        if(data[17] == 0)
+            data[17] = 0x01;//上升延时如为0强制改1
+        data.push(85);
+        var sum=0;
+        for(var i = 1; i < data.length-2; i++){
+            sum += data[i];
+        }
+        data[data.length - 2] = sum;
+
+        var str="";
+        for(var i = 0; i < data.length; i++){
+            str += "0x";
+            if( (data[i] & 0xff ) < 16 )
+                str += "0";
+            str += (data[i] & 0xff).toString(16);
+            str += ",";
+        }
+        console.log('ZCUpdateZhuali=',str);
+
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    function ZCGetMada(){
+        console.log('查询马达速度数据!');
+        var data = [0x8A, 0x03 , 0x18 , 0x01 , 0x1C , 0x55]; //查询马达速度
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    function ZCUpdateMada(){
+        console.log('修改马达速度!');
+    }
+    function ZCClear(){
+        console.log('资料清除!');
+        var data = [0x8A, 0x06, 0x13, 0x01, 0x00, 0x00, 0x00, 0x1A, 0x55];
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+    function ZCReset(){
+        console.log('恢复工厂设置!');
+        var data = [0x8A, 0x05, 0x14, 0x01, 0x01, 0x01, 0x1C, 0x55];
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    // 发送指令
+    function sendCustomCMD(seq, cmd, data) {
+        var _custom_content = {
+            "seq": seq,
+            "cmd": cmd,
+            //"session_id": localStorage.getItem('sessionID'),
+            "data": data
+        };
+        var custom_contentstr = JSON.stringify(_custom_content);
+        //custom_contentstr = custom_contentstr.replace(/\//g, '');
+        console.log("发送指令 加密前",custom_contentstr);
+        custom_contentstr = encrypt(custom_contentstr);
+        console.log("发送指令 加密后",custom_contentstr);
+
+        var custom_msg = {
+            "request_id": idName + '-' + seq,
+            "room_id": roomID,
+            "from_userid": idName,
+            "from_username": nickName,
+            "custom_content": custom_contentstr
+        };
+        //console.log("发送指令 加密后",JSON.stringify(custom_msg));
+
+        zg.sendCustomCommand([anchor_id], JSON.stringify(custom_msg), function (seq, custom_content) {
+            console.log('sendcustomCMD 成功  success-content', JSON.parse(custom_content));
+        }, function (err, seq, custom_content) {
+            console.log('sendcustomCMD 失败  error-content', JSON.parse(custom_content));
+        });
+    }
+
+    /**
+     * 加密（需要先加载lib/aes/aes.min.js文件）
+     * @param word
+     * @returns {*}
+     */
+    function encrypt(word){
+        var encryptedData = CryptoJS.AES.encrypt(word, AESkey, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        var encryptedDataStr = encryptedData.toString();
+        return encryptedDataStr;
+    }
+
+    /**
+     * 解密
+     * @param word
+     * @returns {*}
+     */
+    function decrypt(word){
+        word = word.replace(/[\r\n]/g, "");//报文过长会有换行之类的字符
+
+        var decryptedData = CryptoJS.AES.decrypt(word, AESkey, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        var decryptedStr = decryptedData.toString(CryptoJS.enc.Utf8);
+        return decryptedStr;
+    }
+
+    // 服务端主动推过来的 custommessage 消息事件
+    var RECVCMD = {
+        broadcast: 257,
+        appointment: 272,
+        cancelAppointment: 274,
+        upSelect: 258,
+        upSelectRsp: 273,
+        operateResult: 260,
+        gameInfo: 275,
+        basic: 288
+    }
+
+    // 文档加载完毕后执行
+    function init() {
+        zg.onRecvCustomCommand = function (from_userid, from_idName, _custom_content) {
+            // code 业务逻辑
+            //console.log('解密前 custom_content = ', _custom_content);
+            // AES解密
+            var custom_content = decrypt(_custom_content);
+            //console.log('解密后 custom_content = ', custom_content);
+
+            var recvCustomContent = {};
+            // 服务端返回的消息可能解析失败
+            try {
+                recvCustomContent = JSON.parse(custom_content);
+            } catch (e) {
+                console.log('解析服务器返回的消息失败了！ = ', e);
+            }
+            console.log('客户端-onRecvCustomCommand = ', from_userid, from_idName, recvCustomContent);
+            custom_content = JSON.parse(custom_content);
+            // 516,517 需要seq   在data里面带服务端的返回的seq
+            if (custom_content.cmd === RECVCMD.broadcast) {
+                // 全员广播
+                console.log("全员广播");
+                //broadcastHandler(custom_content);
+            } else if (custom_content.cmd === RECVCMD.appointment) {
+                // 告知本次预约请求是否成功，预约成功则进入排队阶段，否则失败
+
+                //appointmentHandler(custom_content);
+            } else if (custom_content.cmd === RECVCMD.cancelAppointment) {
+                // 取消本次预约
+
+                //cancelAppointmentHandler();
+            } else if (custom_content.cmd === RECVCMD.upSelect) {
+                // 收到回应，是否要付费上机
+
+                //upSelectHandler(custom_content);
+            } else if (custom_content.cmd === RECVCMD.upSelectRsp) {
+                // 服务端返回的信息   对客户端发送的确认上机或者放弃玩游戏指令的回应
+                console.log('operateStatus', operateStatus);
+
+                //upSelectRspHandler();
+            } else if (custom_content.cmd === RECVCMD.operateResult) {
+                // 收到本次抓娃娃的结果
+
+                //operateResultHandler(custom_content);
+            } else if (custom_content.cmd === RECVCMD.gameInfo) {
+                // 收到本次游戏信息
+                console.log("游戏信息");
+                gameInfoHandler(custom_content);
+            } else if(custom_content.cmd === RECVCMD.basic) {
+                // 收到基础数据
+                console.log("基础数据");
+                basicInfoHandler(custom_content);
+            }
+        };
+    };
+
+    // 获取到当前房间游戏信息，并设置房间人数，和当前排队人数
+    function gameInfoHandler(custom_content) {
+        // 设置当前排队人数，和房间总人数
+        var gameInfo = custom_content.data;
+        //console.log('获取游戏信息= ', custom_content);
+    }
+
+    // 获取基础数据
+    function basicInfoHandler(custom_content){
+        //console.log('获取基础数据= ', custom_content);
+        if (typeof(custom_content.data) == "undefined"){
+            alert('返回异常 data为空！cmd:288');
+            return;
+        }
+        var basicInfo = custom_content.data;
+        var str="";
+        for(var i = 0; i < basicInfo.length; i++){
+            str += "0x";
+            if( (basicInfo[i] & 0xff ) < 16 )
+                str += "0";
+            str += (basicInfo[i] & 0xff).toString(16);
+            str += ",";
+        }
+        str += "0x55";
+        console.log('获取基础数据=',str);
+
+        if(basicInfo[2] == 0x10){ //下位机基础数据 修改返回
+            alert('修改基础设置'+ (basicInfo[4] == 1 ? '成功！' : '失败！'));
+            ZCGetBaseInfo();
+        }
+        else if(basicInfo[2] == 0x11){//下位机爪力 修改返回
+            alert('修改爪力'+ (basicInfo[4] == 1 ? '成功！' : '失败！'));
+            ZCGetZhuali();
+        }
+        else if(basicInfo[2] == 0x12){//下位机速度 修改返回
+            alert('修改速度'+ (basicInfo[4] == 1 ? '成功！' : '失败！'));
+        }
+        else if(basicInfo[2] == 0x13){//下位机资料清除 修改返回
+            alert('资料清除'+ (basicInfo[4] == 1 ? '成功！' : '失败！'));
+        }
+        else if(basicInfo[2] == 0x14){//下位机恢复工厂设置 修改返回
+            alert('恢复工厂设置'+ (basicInfo[4] == 1 ? '成功！' : '失败！'));
+        }
+        else if(basicInfo[2] == 0x16){//下位机基础数据 查询
+            localBaseInfo = basicInfo;
+
+            document.getElementById("input_gamemode").value = basicInfo[11] & 0xff;	//游戏模式
+            document.getElementById("input_gailv").value = basicInfo[12] & 0xff;	//出奖概率
+            document.getElementById("input_kou").value = basicInfo[13] & 0xff;		//礼品出口位置
+        }
+        else if(basicInfo[2] == 0x17){//下位机爪力 查询
+            localZhualiInfo = basicInfo;
+
+            var high = getNumber(basicInfo[4] & 0xff, basicInfo[5] & 0xff);
+            var low = getNumber(basicInfo[6] & 0xff, basicInfo[7] & 0xff);
+            var low_ex = getNumber(basicInfo[8] & 0xff, basicInfo[9] & 0xff);
+            var award = getNumber(basicInfo[10] & 0xff, basicInfo[11] & 0xff);
+            var highhold = basicInfo[12] & 0xff;
+            var lowhold = basicInfo[13] & 0xff;
+            var change = basicInfo[14] & 0xff;
+            document.getElementById("input_high").value = high;	//强爪电压
+            document.getElementById("input_low").value = low;	//弱爪电压
+            document.getElementById("input_low_ex").value = low_ex;	//弱抓后电压
+            document.getElementById("input_award").value = award;	//中奖电压
+            document.getElementById("input_highhold").value = highhold;	//强力维持时间
+            document.getElementById("input_lowhold").value = lowhold;	//弱力维持时间
+            document.getElementById("input_change").value = change;	//强变弱方式
+        }
+        else if(basicInfo[2] == 0x18){//下位机马达速度 查询
+            str = str.replace(new  RegExp('0x','g'), '');
+            var dv = document.getElementById('dv_madainfo');
+            dv.firstChild.innerHTML = str;
+            document.getElementById('input_madainfo').value = str;
+            document.getElementById('input_madainfo').style.width=dv.firstChild.offsetWidth+'px'
+            dv.firstChild.innerHTML = "";
+        }
+    }
+
+    // 查询当前基础数据
+    function sendCustom_0x120() {
+        //var data = [0x8A, 0x06 , 0x13 , 0x01 , 0x00 , 0x00 , 0x00 , 0x1A , 0x55]; //清除资料
+        var data = [0x8A, 0x03 , 0x16 , 0x01 , 0x1A , 0x55]; //查询基础设置
+
+        sendCustomCMD(getCustomSeq(), 288, data);
+    }
+
+    function onChecked() {
+        var confirm = $("input[name='confirm']").is(':checked');
+        isonline = confirm ? 1 : 0;
+        initScriptData();
+    }
+
+    function initScriptData() {
+        $.ajax({
+            type:"POST",
+            url:"/room/room_pro_data",
+            data:{
+                is_online:parseInt(isonline)
+            },
+            success: function (json) {
+                if (json.code != 0) {
+                    return;
+                }
+                console.log("success:",json);
+                appid = parseInt(json.data.appid);
+                loginTokenAppKey = json.data.loginTokenAppKey;
+                AESkey = CryptoJS.enc.Utf8.parse(json.data.aeskey);
+                server = json.data.server;
+                init();
+            },
+            error: function (json) {
+                console.log("error:",json);
+                alert("error");
+            }
+        });
+    }
+
+    function checkScriptData() {
+        //console.log("aeskey"+AESkey);
+        if (appid == "" || loginTokenAppKey == "" || AESkey == null || server == "")
+            return false;
+        return true;
+    }
+
+    $(document).ready(function () {
+        initScriptData();
+    });
+
+    /*]]>*/
+</script>
+
+
+</body>
+
+</html>
