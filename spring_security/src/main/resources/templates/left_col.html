@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" href="images/favicon.ico" type="image/ico"/>
+  
+  <title>娃娃机管理系统</title>
+
+  <!-- Bootstrap -->
+  <link href="../static/vendors/bootstrap/dist/css/bootstrap.min.css"
+        th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+
+  <!-- Font Awesome -->
+  <link href="../static/vendors/font-awesome/css/font-awesome.min.css"
+        th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+
+  <!-- NProgress -->
+  <link href="../static/vendors/nprogress/nprogress.css"
+        th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet"/>
+
+  <!-- iCheck -->
+  <link href="../static/vendors/iCheck/skins/flat/green.css"
+        th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet"/>
+
+  <!-- bootstrap-progressbar -->
+  <link href="../static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
+        th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet"/>
+
+  <!-- JQVMap -->
+  <link href="../static/vendors/jqvmap/dist/jqvmap.min.css"
+        th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+
+  <!-- bootstrap-daterangepicker -->
+  <link href="../static/vendors/bootstrap-daterangepicker/daterangepicker.css"
+        th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+
+  <!-- Custom Theme Style -->
+  <link href="../static/build/css/custom.min.css"
+        th:href="@{/build/css/custom.min.css}" rel="stylesheet"/>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+  <div class="main_container">
+    <div class="col-md-3 left_col" th:fragment="left_col">
+      <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+          <a href="/login/index" class="site_title"><i class="fa fa-paw"></i> <span>娃娃机管理系统</span></a>
+        </div>
+        
+        <div class="clearfix"></div>
+        
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+          <div class="profile_pic">
+            <!--<img src="images/img.jpg" alt="..." class="img-circle profile_img"/>-->
+          </div>
+          <div class="profile_info">
+            <span>你好</span>
+            <h2>管理员</h2>
+          </div>
+        </div>
+        <!-- /menu profile quick info -->
+        
+        <br/>
+        
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
+            <ul class="nav side-menu">
+              <!--
+              <li><a><i class="fa fa-edit"></i> 内容管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="index.html">Dashboard</a></li>
+                  <li><a href="index2.html">Dashboard2</a></li>
+                  <li><a href="index3.html">Dashboard3</a></li>
+                </ul>
+              </li>
+              -->
+              <li><a><i class="fa fa-edit"></i> 后台账户管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="/admin/admin_list">后台账户信息</a></li>
+                  <li><a href="/admin/krq">开发日志</a></li>
+                </ul>
+              </li>
+              <li><a><i class="fa fa-edit"></i> 快递管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="/expressage/order">待处理快递订单</a></li>
+                  <li><a href="/expressage/order_delivery">已处理快递订单</a></li>
+                  <li><a href="/expressage/order_recycle">订单回收站</a></li>
+                  <li><a href="/expressage/order_statis">待处理快递物品统计</a></li>
+                  <li><a href="/expressage/name">快递公司信息</a></li>
+                </ul>
+              </li>
+              <li><a><i class="fa fa-edit"></i> 游戏管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="/room/room_list">娃娃机房间</a></li>
+                  <!--<li><a href="/room/room_pro">娃娃机房间配置</a></li>-->
+                  <li><a href="/product/list">日活数据</a></li>
+                  <li><a href="/product/list2">渠道数据</a></li>
+                </ul>
+              </li>
+              <li><a><i class="fa fa-edit"></i> 充值管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="/gameuser/userinfo">玩家账号信息</a></li>
+                  <li><a href="/gameuser/chargeinfo">玩家充值信息</a></li>
+                </ul>
+              </li>
+              <!--
+              <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                  <li><a href="general_elements.html">General Elements</a></li>
+                  <li><a href="media_gallery.html">Media Gallery</a></li>
+                  <li><a href="typography.html">Typography</a></li>
+                  <li><a href="icons.html">Icons</a></li>
+                  <li><a href="glyphicons.html">Glyphicons</a></li>
+                  <li><a href="widgets.html">Widgets</a></li>
+                  <li><a href="invoice.html">Invoice</a></li>
+                  <li><a href="inbox.html">Inbox</a></li>
+                  <li><a href="calendar.html">Calendar</a></li>
+                </ul>
+              </li>
+              -->
+            </ul>
+          </div>
+        </div>
+        <!-- /sidebar menu -->
+      </div>
+    </div>
+  
+  
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="../static/vendors/jquery/dist/jquery.min.js" th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+
+<!-- Bootstrap -->
+<script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"
+        th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+
+<!-- FastClick -->
+<script src="../static/vendors/fastclick/lib/fastclick.js" th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+
+<!-- NProgress -->
+<script src="../static/vendors/nprogress/nprogress.js" th:src="@{/vendors/nprogress/nprogress.js}"></script>
+
+<!-- Chart.js -->
+<script src="../static/vendors/Chart.js/dist/Chart.min.js" th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+
+<!-- gauge.js -->
+<script src="../static/vendors/gauge.js/dist/gauge.min.js" th:src="@{/vendors/gauge.js/dist/gauge.min.js}"></script>
+
+<!-- bootstrap-progressbar -->
+<script src="../static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"
+        th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+
+<!-- iCheck -->
+<script src="../static/vendors/iCheck/icheck.min.js" th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+
+<!-- Skycons -->
+<script src="../static/vendors/skycons/skycons.js" th:src="@{/vendors/skycons/skycons.js}"></script>
+
+<!-- Flot -->
+<script src="../static/vendors/Flot/jquery.flot.js" th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+<script src="../static/vendors/Flot/jquery.flot.pie.js" th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+<script src="../static/vendors/Flot/jquery.flot.time.js" th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+<script src="../static/vendors/Flot/jquery.flot.stack.js" th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+<script src="../static/vendors/Flot/jquery.flot.resize.js" th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
+
+<!-- Flot plugins -->
+<script src="../static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"
+        th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+<script src="../static/vendors/flot.curvedlines/curvedLines.js"
+        th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+
+<!-- DateJS -->
+<script src="../static/vendors/DateJS/build/date.js" th:src="@{/vendors/DateJS/build/date.js}"></script>
+
+<!-- JQVMap -->
+<script src="../static/vendors/jqvmap/dist/jquery.vmap.js" th:src="@{/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+<script src="../static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"
+        th:src="@{/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+<script src="../static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"
+        th:src="@{/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+
+<!-- bootstrap-daterangepicker -->
+<script src="../static/vendors/moment/min/moment.min.js" th:src="@{/vendors/moment/min/moment.min.js}"></script>
+<script src="../static/vendors/bootstrap-daterangepicker/daterangepicker.js"
+        th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+ <!--Custom Theme Scripts-->
+<script src="../static/build/js/custom.min.js" th:src="@{/build/js/custom.min.js}"></script>
+
+</body>
+</html>
