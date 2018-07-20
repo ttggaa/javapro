@@ -21,3 +21,10 @@ myweb/*.iws
 myweb/*.iml
 myweb/*.ipr
 myweb/target/
+
+my_security/target/
+my_security/.idea
+my_security/*.iws
+my_security/*.iml
+my_security/*.ipr
+my_security/target/

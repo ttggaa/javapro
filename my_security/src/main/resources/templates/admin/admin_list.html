@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="images/favicon.ico" type="image/ico"/>
+
+    <title>娃娃机管理系统</title>
+
+    <!-- Bootstrap -->
+    <link href="../../static/vendors/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- Font Awesome -->
+    <link href="../../static/vendors/font-awesome/css/font-awesome.min.css"
+          th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+
+    <!-- NProgress -->
+    <link href="../../static/vendors/nprogress/nprogress.css"
+          th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet"/>
+
+    <!-- iCheck -->
+    <link href="../../static/vendors/iCheck/skins/flat/green.css"
+          th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet"/>
+
+    <!-- bootstrap-progressbar -->
+    <link href="../../static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
+          th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet"/>
+
+    <link href="../../static/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+          th:href="@{/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
+
+    <!-- JQVMap -->
+    <link href="../../static/vendors/jqvmap/dist/jqvmap.min.css"
+          th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+
+    <!-- bootstrap-daterangepicker -->
+    <link href="../../static/vendors/bootstrap-daterangepicker/daterangepicker.css"
+          th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="../../static/build/css/custom.min.css"
+          th:href="@{/build/css/custom.min.css}" rel="stylesheet"/>
+
+</head>
+
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col" th:replace="left_col :: left_col">
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav" th:replace="top_nav :: top_nav">
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>
+                                    账户信息
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                            <div class="x_content">
+
+                                <table id="adminTable" class="table table-striped table-bordered bulk_action">
+                                    <thead>
+                                    <tr>
+                                        <!--<th>货物号</th>-->
+                                        <th>账户名称</th>
+                                        <th>账户描述</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                                <div class="col-md-1">
+                                    <form method="post" action="/admin/admin_add">
+                                        <button type="button submit" class="btn btn-success" onclick="return true">新增</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="../../static/vendors/jquery/dist/jquery.min.js" th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script src="../../static/vendors/bootstrap/dist/js/bootstrap.min.js"
+        th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script src="../../static/vendors/fastclick/lib/fastclick.js" th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NProgress -->
+<script src="../../static/vendors/nprogress/nprogress.js" th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<!-- iCheck -->
+<script src="../../static/vendors/iCheck/icheck.min.js" th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+<!-- Datatables -->
+<script src="../../static/vendors/datatables.net/js/jquery.dataTables.min.js"
+        th:src="@{/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script src="../../static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"
+        th:src="@{/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"
+        th:src="@{/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/buttons.flash.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/buttons.html5.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+<script src="../../static/vendors/datatables.net-buttons/js/buttons.print.min.js"
+        th:src="@{/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+<script src="../../static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"
+        th:src="@{/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+<script src="../../static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"
+        th:src="@{/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+<script src="../../static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"
+        th:src="@{/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+<script src="../../static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"
+        th:src="@{/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+<script src="../../static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"
+        th:src="@{/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+<script src="../../static/vendors/jszip/dist/jszip.min.js" th:src="@{/vendors/jszip/dist/jszip.min.js}"></script>
+<script src="../../static/vendors/pdfmake/build/pdfmake.min.js"
+        th:src="@{/vendors/pdfmake/build/pdfmake.min.js}"></script>
+<script src="../../static/vendors/pdfmake/build/vfs_fonts.js" th:src="@{/vendors/pdfmake/build/vfs_fonts.js}"></script>
+
+<!-- Custom Theme Scripts-->
+<script src="../../static/build/js/custom.min.js" th:src="@{/build/js/custom.min.js}"></script>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+
+    function initAdminTable() {
+        var rlt = $("#adminTable").DataTable({
+            destroy:true,
+            serverSide:true,
+            ajax: {
+                url:"/admin/admin_table",
+            },
+            columns: [
+                /*{
+                    width:"10%",
+                    data: "good_id"
+                },*/
+                {
+                    width:"20px",
+                    data: "account"
+                },
+                {
+                    width:"10px",
+                    data: "remark"
+                },
+            ],
+            ordering:false,
+            searching:false,
+            pageLength:10,
+        });
+    }
+
+    $(document).ready(function () {
+        initAdminTable();
+    });
+
+    /*]]>*/
+</script>
+
+</body>
+</html>
