@@ -2,6 +2,7 @@ package com.cgy.test.demo.controller;
 
 
 import com.cgy.test.demo.persistence.dao.UserBasicDao;
+import com.cgy.test.demo.persistence.daoweb.UserBasicDaoweb;
 import com.cgy.test.demo.persistence.entity.UserBasicEntity;
 import com.cgy.test.demo.persistence.service.UserBasicService;
 import com.google.gson.Gson;
@@ -25,6 +26,13 @@ public class TestController {
     //@Autowired
     //@Qualifier("mytest")
     //private UserBasicDao userBasicDao;
+
+    @Autowired
+    private UserBasicDao dao;
+
+
+    @Autowired
+    private UserBasicDaoweb daoWeb;
 
     @PostMapping(value = "/save1")
     public @ResponseBody String save1(@RequestBody(required = false) String body) {
@@ -54,4 +62,33 @@ public class TestController {
             return "error 2";
         return "success";
     }
+
+    @PostMapping(value = "/save3")
+    public @ResponseBody String save3(@RequestBody(required = false) String body) {
+
+        try {
+            if (body == null)
+                return "error";
+            Gson gson = new Gson();
+            Req req = gson.fromJson(body, Req.class);
+            if (req.name == null || req.name.isEmpty())
+                return "error 2";
+
+            UserBasicEntity entity = new UserBasicEntity();
+            entity.setNickname(req.name);
+
+            logger.info("save dao");
+            dao.save(entity);
+
+            UserBasicEntity entity2 = new UserBasicEntity();
+            entity2.setNickname(req.name);
+            daoWeb.save(entity2);
+
+            return "success";
+        } catch (Exception e) {
+            logger.warn("exception {}", e.toString());
+        }
+        return "fail";
+    }
+
 }

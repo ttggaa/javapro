@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserBasicDao extends JpaRepository<UserBasicEntity, Integer> {
 
-    @Query
     UserBasicEntity findByUserId(int userId);
 
 }

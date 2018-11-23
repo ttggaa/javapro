@@ -56,6 +56,12 @@ public class MytestConfig {
         return jpaProperties.getHibernateProperties(new HibernateSettings());
     }
 
+    /*
+    private Map<String, Object> getVendorProperties(DataSource dataSource) {
+        return jpaProperties.getHibernateProperties(dataSource);
+    }
+    */
+
     @Bean(name = "mytestTransactionManager")
     @Primary
     PlatformTransactionManager mytestTransactionManager(EntityManagerFactoryBuilder builder) {
